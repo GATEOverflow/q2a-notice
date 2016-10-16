@@ -1,6 +1,7 @@
 {
 	"name": "Notice Page",
 	"description": "This plugin allows notices to be sent to user class in Q2A",
+	"uri": "https://github.com/arjunsuresh/q2a-notice",
 	"version": "1.0",
 	"date": "2016-10-14",
 	"author": "Arjun Suresh",
