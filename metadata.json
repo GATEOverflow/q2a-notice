@@ -4,7 +4,8 @@
 	"version": "1.0",
 	"date": "2016-10-14",
 	"author": "Arjun Suresh",
-	"author_uri": "http://armi.in/arjun",
+	"author_uri": "http://gateoverflow.in/user/Arjun",
+	"update_uri": "https://raw.githubusercontent.com/arjunsuresh/q2a-notice/master/metadata.json",
 	"license": "GPLv2",
 	"min_q2a": "1.5"
 }
