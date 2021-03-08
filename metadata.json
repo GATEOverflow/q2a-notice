@@ -9,4 +9,5 @@
 	"update_uri": "https://raw.githubusercontent.com/arjunsuresh/q2a-notice/master/metadata.json",
 	"license": "GPLv2",
 	"min_q2a": "1.5"
+	"load_order": "after_db_init" 
 }
