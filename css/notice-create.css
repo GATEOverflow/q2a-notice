@@ -1,0 +1,200 @@
+#nbList {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.nb-item {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: #fff;
+    box-shadow: 0 3px 10px rgba(0,0,0,.06);
+}
+
+.nb-summary {
+    padding: 14px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.nb-title {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.nb-meta {
+    font-size: 12px;
+    color: #666;
+}
+
+.nb-actions button {
+    margin-left: 6px;
+}
+
+.nb-body {
+    padding: 14px;
+    border-top: 1px solid #eee;
+    background: #fafafa;
+}
+
+.nb-body label {
+    font-size: 12px;
+    margin-top: 10px;
+    display: block;
+}
+
+.nb-body input,
+.nb-body textarea,
+.nb-body select {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.nb-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.aud-min,
+.aud-users {
+    display: none;
+    margin-top: 8px;
+}
+
+.nb-add {
+    margin-top: 14px;
+}
+/* Accordion animation – faster & smoother */
+.nb-body {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    transition:
+        max-height 0.70s cubic-bezier(.4,0,.2,1),
+        opacity 0.70s ease-out,
+        padding 0.70s cubic-bezier(.4,0,.2,1);
+}
+
+/* Expanded state */
+.nb-item.open .nb-body {
+    max-height: 1000px;
+    opacity: 1;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+/* Subtle highlight on open */
+.nb-item.open {
+    background: #f9fbff;                 /* very light blue tint */
+    border-color: #cfd8ff;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+
+/* Optional: slightly emphasize summary when open */
+.nb-item.open .nb-summary {
+    background: #eef3ff;
+}
+
+.nb-actions .nb-add-below {
+    font-weight: bold;
+    margin-right: 4px;
+    cursor: pointer;
+}
+
+
+.nb-error {
+    border-color: #e5533d;
+    box-shadow: 0 0 0 2px rgba(229,83,61,.15);
+}
+
+.nb-input-error {
+    border-color: #e5533d;
+}
+
+.nb-error-msg {
+    color: #e5533d;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+
+.nb-usersearch {
+    margin-bottom: 8px;
+}
+
+.nb-user-handle-search {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #d4d8dd;
+    border-radius: 5px;
+}
+
+.nb-user-results div {
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 4px;
+}
+
+.nb-user-results div:hover {
+    background-color: #eef3ff;
+}
+
+/* --- Save button wrapper --- */
+.nb-save-wrap {
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* --- Save button --- */
+.nb-save-btn {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+    color: #fff;
+    font-weight: 600;
+    padding: 11px 26px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    letter-spacing: .3px;
+    box-shadow: 0px 4px 14px rgba(0,0,0,.18);
+    transition: all .2s ease;
+}
+
+.nb-save-btn:hover {
+    background: linear-gradient(135deg, #1e88e5, #1769aa);
+    box-shadow: 0px 5px 18px rgba(0,0,0,.25);
+}
+
+.nb-save-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0px 3px 10px rgba(0,0,0,.15);
+}
+
+/* --- Toast styling --- */
+#nb-toast {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background: #27ae60;
+    color: #fff;
+    padding: 14px 22px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: 0 4px 14px rgba(0,0,0,.30);
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    z-index: 99999;
+    transition: all .35s ease-in-out;
+}
+
+#nb-toast.nb-toast-show {
+    opacity: 1;
+    transform: translateY(0);
+}

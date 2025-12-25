@@ -29,4 +29,15 @@ if (!defined('QA_VERSION')) { // don't allow this page to be requested directly 
 qa_register_plugin_module('page', 'qa-notice-page.php', 'qa_notice_page', 'Notice Page');
 qa_register_plugin_phrases('qa-notice-lang-*.php', 'notice_page');
 
+// Registering Admin settings
+qa_register_plugin_module('module', 'qa-notice-widget-admin.php', 'qa_notice_widget_admin', 'Initialization of notice widget module');
+
+//Creating a page for creation of notice boards events.
+qa_register_plugin_module('page', 'qa-notice-board-create.php', 'notice_board_create', 'Page for creating notice boards events');
+qa_register_plugin_module('page', 'notice-usersearch.php', 'notice_usersearch', 'Ajax request Usersearch Page for Notice plugin');
+
+//Widget Registration
+qa_register_plugin_module('widget','qa-noticeboard-widget.php','qa_notice_widget','Notice Board (Scrolling)');
+
+
 

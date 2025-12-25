@@ -66,7 +66,7 @@ class qa_notice_page
 		}
 
 		$ok = null;
-		$qa_content['title']=qa_lang_html('notice_page/page_title');
+		$qa_content['title']=qa_lang('notice_page/page_title');
 		$editorname = isset($in['editor']) ? $in['editor'] : qa_opt('editor_for_qs');
 		if(qa_clicked('okthen'))
 		{
@@ -79,7 +79,7 @@ class qa_notice_page
 			{
 				qa_db_usernotice_create($user['userid'], $notice, 'html', 'byadmin: '.$level);
 			}
-			$ok = qa_lang_html('notice_page/notice_sent');
+			$ok = qa_lang('notice_page/notice_sent');
 		}
 		require_once QA_INCLUDE_DIR.'app/users.php';
 		$showoptions = array(
@@ -93,7 +93,7 @@ class qa_notice_page
 		$editor = qa_load_editor(@$in['content'], @$in['format'], $editorname);
 
 		$field = qa_editor_load_field($editor, $qa_content, @$in['content'], @$in['format'], 'content', 12, false);
-		$field['label'] = qa_lang_html('notice_page/notice_content_label');
+		$field['label'] = qa_lang('notice_page/notice_content_label');
 		$field['error'] = qa_html(@$errors['content']);
 
 		$qa_content['form']=array(
@@ -102,7 +102,7 @@ class qa_notice_page
 				'style' => 'wide',
 				'ok' => ($ok && !isset($error)) ? $ok : null,
 
-				'title' => qa_lang_html('notice_page/form_title'),
+				'title' => qa_lang('notice_page/form_title'),
 
 				'fields' => array(
 					'content' => $field,

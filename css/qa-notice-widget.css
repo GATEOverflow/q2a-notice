@@ -1,0 +1,128 @@
+.qa-notice-item {
+	font-size: 13px;
+    padding: 14px 12px;
+    border-radius: 8px;
+    background: #fafbfc;
+    border: 1px solid #e6e9ef;
+	border-bottom: 1px dashed #eee;
+}
+
+.qa-notice-item:last-child {
+    border-bottom: none;
+}
+
+.qa-notice-item a {
+    text-decoration: none;
+}
+
+.qa-notice-item a:hover {
+    text-decoration: underline;
+}
+
+.qa-notice-widget {
+    border: 1px solid #d6dbe3;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.06);
+}
+
+.qa-notice-title {
+    font-weight: 700;
+    padding: 5px 5px;
+    font-size: 16px;
+    background: linear-gradient(135deg, #f5f7fb, #eef2f7);
+    border-bottom: 1px solid #d6dbe3;
+}
+
+
+
+
+.qa-notice-item:last-child {
+    margin-bottom: 10px;
+}
+
+.qa-notice-item-title,
+.qa-notice-item-desc-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.qa-notice-title-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.qa-notice-title-text a {
+    color: #0b5ed7;
+    text-decoration: none;
+}
+
+.qa-notice-title-text a:hover {
+    text-decoration: underline;
+}
+
+.qa-notice-desc {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #374151;
+    white-space: normal;
+}
+
+.qa-notice-scroll {
+    max-height: 200px;
+    overflow: hidden;
+    padding: 5px 5px;
+	position: relative;
+}
+
+.qa-notice-track {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    will-change: transform;
+}
+
+/* pause on hover */
+.qa-notice-widget:hover .qa-notice-track {
+    animation-play-state: paused;
+}
+
+
+
+/* Top fade */
+.qa-notice-scroll::before,
+.qa-notice-scroll::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 32px;        /* fade height */
+    z-index: 2;
+    pointer-events: none;
+}
+
+.qa-notice-scroll::before {
+    top: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0));
+}
+
+.qa-notice-scroll::after {
+    bottom: 0;
+    background: linear-gradient(to top, rgba(255,255,255,1), rgba(255,255,255,0));
+}
+
+
+body.dark-mode .qa-notice-scroll::before {
+    background: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+}
+body.dark-mode .qa-notice-scroll::after {
+    background: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+}
+.qa-notice-track {
+    padding: 12px 0;
+}

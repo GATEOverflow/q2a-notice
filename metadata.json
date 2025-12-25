@@ -1,13 +1,13 @@
 {
-	"name": "Notice Page",
-	"description": "This plugin allows notices to be sent to user class in Q2A",
+	"name": "Notice Page and Widget",
+	"description": "This plugin allows notices to be sent to user class in Q2A and Manage Notice Board",
 	"uri": "https://github.com/arjunsuresh/q2a-notice",
-	"version": "1.0",
-	"date": "2016-10-14",
-	"author": "Arjun Suresh",
+	"version": "2.0",
+	"date": "2025-12-24",
+	"author": "Arjun Suresh, Shaik Masthan",
 	"author_uri": "http://gateoverflow.in/user/Arjun",
 	"update_uri": "https://raw.githubusercontent.com/arjunsuresh/q2a-notice/master/metadata.json",
 	"license": "GPLv2",
-	"min_q2a": "1.5"
+	"min_q2a": "1.5",
 	"load_order": "after_db_init" 
 }
