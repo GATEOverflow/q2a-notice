@@ -74,12 +74,46 @@ class qa_notice_page
 			require_once QA_INCLUDE_DIR.'db/selects.php';
 			$notice=qa_post_text('content');
 			$level = qa_post_text('level');
-			$tousers = qa_db_single_select(qa_db_users_from_level_selectspec($level));
+			$shopitem = qa_post_text('shopitem');
+			$type = qa_post_text('type');
+			$subject = qa_post_text('subject');
+			$from = qa_post_text('from');
+			$minpoints = qa_post_text('minpoints');
+			$maxpoints = qa_post_text('maxpoints');
+			$lastactive = qa_post_text('lastactive');
+			$query = "select userid from ^users where loggedin > NOW() - INTERVAL # DAY and level >= # and userid in (select userid from ^userpoints where points >= # and points <= #)";
+			if($shopitem != '')
+			{
+				$query .= " and email not in (select email from ^payu_alternative where itemid = $shopitem)";
+			}
+			//echo $query;
+			//exit;
+			$result = qa_db_query_sub($query, $lastactive, $level, $minpoints, $maxpoints);
+			$tousers = qa_db_read_all_values($result);
+		//	print_r($tousers);
+		//	exit;
+			$tcount = count($tousers);	
+		//	echo $tcount;
+			//$tousers = qa_db_single_select(qa_db_users_from_level_selectspec($level));
 			foreach($tousers as $user)
 			{
-				qa_db_usernotice_create($user['userid'], $notice, 'html', 'byadmin: '.$level);
+				 if($type == 0)
+                                {
+                                        $query = "select handle, email from ^users where userid = #";
+                                        $result = qa_db_query_sub($query, $user);
+					$row = qa_db_read_one_assoc($result);
+					$email = $row['email'];
+				//	$email = "arjunsuresh1987@gmail.com";
+					qa_send_notification(null, $email, $row['handle'], $subject, $notice, null, true, $from);//arjun
+				//	exit;
+                                }
+                                else
+                                {
+
+				 qa_db_usernotice_create($user['userid'], $notice, 'html', 'byadmin: '.$level);
+				}
 			}
-			$ok = qa_lang('notice_page/notice_sent');
+			$ok = qa_lang_html('notice_page/notice_sent')." to $tcount users";
 		}
 		require_once QA_INCLUDE_DIR.'app/users.php';
 		$showoptions = array(
@@ -95,6 +129,23 @@ class qa_notice_page
 		$field = qa_editor_load_field($editor, $qa_content, @$in['content'], @$in['format'], 'content', 12, false);
 		$field['label'] = qa_lang('notice_page/notice_content_label');
 		$field['error'] = qa_html(@$errors['content']);
+		$shops = qa_opt("shops_on");
+ $shopitems = array();
+		if($shops)
+		{
+			$query = "select itemid,name from ^shopitems";
+			$result = qa_db_query_sub($query);
+			$rows = qa_db_read_all_assoc($result);
+			foreach($rows as $row)
+			{
+				$shopitems[$row['itemid']] = $row['name'];
+			}
+		}
+ $showoptions1 = array(
+                                "0" => "Email",
+                                "1" => "Notice",
+                                );
+
 
 		$qa_content['form']=array(
 				'tags' => 'method="post" action="'.qa_self_html().'"',
@@ -112,7 +163,42 @@ class qa_notice_page
 						'type' => 'select',
 						'options' => $showoptions,
 						),
-
+					'type' =>array(
+						'label' => 'Notice Type',
+						'tags' => 'name="type"',
+						'type' => 'select',
+						'options' => $showoptions1,
+						),
+					'subject' =>array(
+						'label' => 'Subject',
+						'tags' => 'name="subject"',
+						'type' => 'text',
+						'value' => 'A message from '.qa_opt('site_title')
+						),
+					'from' =>array(
+						'label' => 'From Address',
+						'tags' => 'name="from"',
+						'type' => 'text',
+						'value' => qa_opt('from_email')
+						),
+					'minpoints' =>array(
+						'label' => 'Users with Min. Points',
+						'tags' => 'name="minpoints"',
+						'type' => 'text',
+						'value' => '0'
+						),
+					'maxpoints' =>array(
+						'label' => 'Users with Max. Points',
+						'tags' => 'name="maxpoints"',
+						'type' => 'text',
+						'value' => '1000'
+						),
+					'lastactive' =>array(
+						'label' => 'Last Active within (days)',
+						'tags' => 'name="lastactive"',
+						'type' => 'text',
+						'value' => '90'
+						),
 
 					),
 
@@ -124,7 +210,17 @@ class qa_notice_page
 							),
 						),
 
-				);
+		);
+		if($shops)
+		{
+			$qa_content['form']['fields']['shopitem'] = array(
+                                                'label' => 'Eliminate purchasers of',
+                                                'tags' => 'name="shopitem"',
+                                                'type' => 'select',
+                                                'options' => $shopitems,
+                                                );
+
+		}
 
 
 		return $qa_content;
