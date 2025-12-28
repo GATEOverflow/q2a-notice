@@ -5,50 +5,41 @@ document.addEventListener('DOMContentLoaded', function () {
         const track = scrollBox.querySelector('.qa-notice-track');
         if (!track) return;
 
-        const items = [...track.children];
-        if (items.length < 2) return;
-
-        track.innerHTML += track.innerHTML;
-
-        let totalHeight = 0;
-        items.forEach(el => {
-            totalHeight += el.offsetHeight + 40;
-        });
-
-        let pos = 0;
         let paused = false;
-
-        const speed = 0.35; // adjust speed here
-        const resetDelay = 600; // ms delay before restarting loop
+        let pos = 0;
+        let direction = 1;            // 1 = down, -1 = up
+        const forward_speed = 0.85;           // pixels per frame
+		const reverse_speed = 10;           // pixels per frame
+		let speed = forward_speed;
 
         scrollBox.addEventListener('mouseenter', () => paused = true);
         scrollBox.addEventListener('mouseleave', () => paused = false);
 
         function step() {
             if (!paused) {
-                pos += speed;
+                pos += direction * speed;
 
-                if (pos >= totalHeight) {
-                    pos = -10;
-                    track.style.transition = 'none';
-                    track.style.transform = `translateY(-${pos}px)`;
+                const maxScroll = track.scrollHeight - scrollBox.clientHeight;
 
-                    // small delay before scrolling resumes smoothly
-                    setTimeout(() => {
-                        track.style.transition = 'transform 0.10s linear'; 
-                    }, resetDelay);
-                } else {
-                    // normal scrolling
-                    track.style.transition = 'transform 0.108s linear';
-                    track.style.transform = `translateY(-${pos}px)`;
+                // reached bottom → reverse direction
+                if (pos >= maxScroll) {
+                    pos = maxScroll;
+                    direction = -1;
+					speed=reverse_speed;
                 }
+
+                // reached top → reverse direction
+                if (pos <= 0) {
+                    pos = 0;
+                    direction = 1;
+					speed=forward_speed;
+                }
+
+                track.style.transform = `translateY(-${pos}px)`;
             }
 
             requestAnimationFrame(step);
         }
-
-        // initialize transition style
-        track.style.transition = 'transform 0.108s linear';
 
         requestAnimationFrame(step);
     });
