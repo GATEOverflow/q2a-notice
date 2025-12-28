@@ -337,6 +337,24 @@ class notice_board_create
                     $min, $pos
                 );
                 $nid = qa_db_last_insert_id();
+				
+				qa_report_event(
+					'notice_created',
+					qa_get_logged_in_userid(),
+					qa_get_logged_in_handle(),
+					qa_cookie_get(),
+					array(
+						'notice_id' => $nid,
+						'title'     => $title,
+						'desc' => $descs[$i],
+						'url' => $urls[$i],
+						'start'     => $starts[$i],
+						'end'       => $ends[$i],
+						'audience'  => $audience,
+						'min' => $min,
+						'specific_users' => $users[$i] ?? ''
+					)
+				);
             }
 
             $this->save_specific_users($nid, $audience, $users[$i] ?? '');

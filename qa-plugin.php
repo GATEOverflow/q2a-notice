@@ -38,6 +38,3 @@ qa_register_plugin_module('page', 'notice-usersearch.php', 'notice_usersearch', 
 
 //Widget Registration
 qa_register_plugin_module('widget','qa-noticeboard-widget.php','qa_notice_widget','Notice Board (Scrolling)');
-
-
-
