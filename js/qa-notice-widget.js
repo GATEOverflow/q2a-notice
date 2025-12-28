@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', function () {
         let paused = false;
         let pos = 0;
         let direction = 1;            // 1 = down, -1 = up
-        const forward_speed = 0.85;           // pixels per frame
-		const reverse_speed = 10;           // pixels per frame
+        const forward_speed = 0.75;           // pixels per frame
+		const reverse_speed = 6;           // pixels per frame
 		let speed = forward_speed;
 
         scrollBox.addEventListener('mouseenter', () => paused = true);
