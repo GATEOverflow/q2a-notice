@@ -67,8 +67,8 @@ class notice_board_create
 			</script>';
 			
 
-		$content['css_src'][]    = $this->urltoroot . 'css/notice-create.css';
-        $content['script_src'][] = $this->urltoroot . 'js/notice-create.js';
+		$content['css_src'][]    = $this->urltoroot . 'css/notice-create.css?v=1.0';
+        $content['script_src'][] = $this->urltoroot . 'js/notice-create.js?v=1.0';
 
 		$post_error = null;
 
