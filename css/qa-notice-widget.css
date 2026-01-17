@@ -1,10 +1,10 @@
 .qa-notice-item {
-	font-size: 13px;
+    font-size: 13px;
     padding: 14px 12px;
     border-radius: 8px;
     background: #fafbfc;
     border: 1px solid #e6e9ef;
-	border-bottom: 1px dashed #eee;
+    border-bottom: 1px dashed #eee;
 }
 
 .qa-notice-item:last-child {
@@ -31,6 +31,8 @@
     padding: 5px 5px;
     font-size: 16px;
     background: linear-gradient(135deg, #f5f7fb, #eef2f7);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     border-bottom: 1px solid #d6dbe3;
 }
 
@@ -77,7 +79,7 @@
     max-height: 200px;
     overflow: hidden;
     padding: 5px 5px;
-	position: relative;
+    position: relative;
 }
 
 .qa-notice-track {
@@ -125,4 +127,29 @@ body.dark-mode .qa-notice-scroll::after {
 }
 .qa-notice-track {
     padding: 12px 0;
+}
+
+/* Dark Mode */
+
+[data-theme="dark"] .qa-notice-widget {
+    background-color: #1b1b1b;
+    border-color: transparent;
+}
+[data-theme="dark"] .qa-notice-title {
+    background: #1b1b1b;
+    border-color: rgb(255 255 255 / 0%);
+}
+[data-theme="dark"] .qa-notice-scroll::before {
+    background: linear-gradient(to bottom, #1b1b1b, rgba(255, 255, 255, 0));
+}
+[data-theme="dark"] .qa-notice-scroll::after {
+    background: linear-gradient(to top, #1b1b1b, rgba(255, 255, 255, 0));
+}
+
+html:not([data-theme="light"]) .qa-notice-item {
+    background: rgb(255 255 255 / 10%);
+    border-color: transparent;
+}
+html:not([data-theme="light"]) .qa-notice-desc {
+    color: inherit;
 }
