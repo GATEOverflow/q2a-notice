@@ -103,7 +103,7 @@ class qa_notice_widget_admin
 					PRIMARY KEY (notice_id, userid),
 					INDEX idx_notice_user_userid (userid),
 
-					CONSTRAINT fk_notice_user_notice
+					CONSTRAINT fk_{$mapTbl}_notice
 						FOREIGN KEY (notice_id)
 						REFERENCES `$noticeTbl` (notice_id)
 						ON DELETE CASCADE
