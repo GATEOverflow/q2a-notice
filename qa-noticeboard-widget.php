@@ -25,7 +25,7 @@ class qa_notice_widget
 		if (!self::$assets_loaded) {
 
 			$themeobject->output(
-				'<link rel="stylesheet" href="'.$this->urltoroot.'css/qa-notice-widget.css">'
+				'<link rel="stylesheet" href="'.$this->urltoroot.'css/qa-notice-widget.css?v=1.1">'
 			);
 			$themeobject->output(
 				'<script src="'.$this->urltoroot.'js/qa-notice-widget.js?v=1.1"></script>'
