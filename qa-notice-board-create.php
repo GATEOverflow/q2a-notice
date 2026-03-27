@@ -67,8 +67,11 @@ class notice_board_create
 			</script>';
 			
 
-		$content['css_src'][]    = $this->urltoroot . 'css/notice-create.css?v=1.0';
-        $content['script_src'][] = $this->urltoroot . 'js/notice-create.js?v=1.0';
+		$v = QA_NOTICE_PLUGIN_VERSION;
+
+		$content['custom'] .=
+			'<link rel="stylesheet" href="'.$this->urltoroot.'css/notice-create.css?v='.$v.'" media="print" onload="this.media=\'all\'">'.
+			'<script defer src="'.$this->urltoroot.'js/notice-create.js?v='.$v.'"></script>';
 
 		$post_error = null;
 
