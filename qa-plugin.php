@@ -25,6 +25,8 @@ if (!defined('QA_VERSION')) { // don't allow this page to be requested directly 
 	exit;
 }
 
+define('QA_NOTICE_PLUGIN_VERSION', '2.0');
+
 
 qa_register_plugin_module('page', 'qa-notice-page.php', 'qa_notice_page', 'Notice Page');
 qa_register_plugin_phrases('qa-notice-lang-*.php', 'notice_page');

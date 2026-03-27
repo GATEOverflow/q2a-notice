@@ -23,12 +23,13 @@ class qa_notice_widget
     public function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
     {
 		if (!self::$assets_loaded) {
+			$v = QA_NOTICE_PLUGIN_VERSION;
 
 			$themeobject->output(
-				'<link rel="stylesheet" href="'.$this->urltoroot.'css/qa-notice-widget.css?v=1.1">'
+				'<link rel="stylesheet" href="'.$this->urltoroot.'css/qa-notice-widget.css?v='.$v.'" media="print" onload="this.media=\'all\'">'
 			);
 			$themeobject->output(
-				'<script src="'.$this->urltoroot.'js/qa-notice-widget.js?v=1.1"></script>'
+				'<script defer src="'.$this->urltoroot.'js/qa-notice-widget.js?v='.$v.'"></script>'
 			);
 
 			self::$assets_loaded = true;
@@ -39,7 +40,8 @@ class qa_notice_widget
         $userlevel  = qa_get_logged_in_level();
         $notices = $this->fetch_notices($userid, $userlevel);
 
-        $themeobject->output('<div class="qa-notice-widget">');
+        $userAttr = $userid ? ' data-userid="'.qa_html($userid).'"' : '';
+        $themeobject->output('<div class="qa-notice-widget"'.$userAttr.'>');
         $themeobject->output('<div class="qa-notice-title">'.qa_lang('notice_page/notice_widget_title').'</div>');
         $themeobject->output('<div class="qa-notice-scroll">');
 		$themeobject->output('<div class="qa-notice-track">');
@@ -58,8 +60,9 @@ class qa_notice_widget
             $url   = $n['notice_url']
                 ? qa_html($n['notice_url'])
                 : null;
+            $nid = (int)$n['notice_id'];
 
-			$themeobject->output('<div class="qa-notice-item">');
+			$themeobject->output('<div class="qa-notice-item" data-notice-id="'.$nid.'">');
 
 			$themeobject->output(
 				$url
@@ -73,11 +76,29 @@ class qa_notice_widget
 				);
 			}
 
+			if ($userid) {
+				$themeobject->output(
+					'<button class="qa-notice-dismiss" title="'.qa_lang('notice_page/notice_mark_read').'">&times;</button>'
+				);
+			}
+
 			$themeobject->output('</div>');
 
         }
 
-        $themeobject->output('</div></div></div>');
+        $themeobject->output('</div>'); // close track
+        if ($userid) {
+            $themeobject->output(
+                '<div class="qa-notice-allread" style="display:none;">'.qa_lang('notice_page/notice_all_read').'</div>'
+            );
+        }
+        $themeobject->output('</div>'); // close scroll
+        if ($userid) {
+            $themeobject->output(
+                '<div class="qa-notice-show-all" style="display:none;"><a href="#">'.qa_lang('notice_page/notice_show_all').'</a></div>'
+            );
+        }
+        $themeobject->output('</div>'); // close widget
     }
 
 	private function fetch_notices($userid, $userlevel)
