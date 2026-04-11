@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const allItems = Array.from(track.querySelectorAll('.qa-notice-item'));
         const allReadEl = widget.querySelector('.qa-notice-allread');
         const showAllEl = widget.querySelector('.qa-notice-show-all');
+        const markAllBtn = widget.querySelector('.qa-notice-mark-all');
 
         // --- localStorage helpers (only for logged-in users) ---
         function getReadSet() {
@@ -76,9 +77,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 // All read — show banner + "Show all" link
                 if (allReadEl) allReadEl.style.display = '';
                 if (showAllEl) showAllEl.style.display = '';
+                if (markAllBtn) markAllBtn.style.display = 'none';
             } else {
                 if (allReadEl) allReadEl.style.display = 'none';
                 if (showAllEl) showAllEl.style.display = 'none';
+                if (markAllBtn) markAllBtn.style.display = '';
             }
 
             resetScroll();
@@ -91,6 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             if (showBanner && allReadEl) allReadEl.style.display = '';
             if (showAllEl) showAllEl.style.display = 'none';
+            if (markAllBtn) markAllBtn.style.display = '';
             resetScroll();
         }
 
@@ -136,6 +140,18 @@ document.addEventListener('DOMContentLoaded', function () {
                     e.preventDefault();
                     clearAllRead();
                     showAllNotices(false);
+                });
+            }
+
+            // "Mark all as read" button
+            if (markAllBtn) {
+                markAllBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    allItems.forEach(function (item) {
+                        var nid = item.dataset.noticeId;
+                        markRead(nid);
+                    });
+                    applyReadFilter();
                 });
             }
         }

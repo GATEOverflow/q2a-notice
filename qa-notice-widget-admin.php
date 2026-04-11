@@ -10,8 +10,6 @@ class qa_notice_widget_admin
 		require_once QA_INCLUDE_DIR.'app/users.php';
 
 		$this->level_options = [
-			QA_USER_LEVEL_BASIC     => 'Registered Users',
-			QA_USER_LEVEL_EXPERT    => 'Experts',
 			QA_USER_LEVEL_EDITOR    => 'Editors',
 			QA_USER_LEVEL_MODERATOR => 'Moderators',
 			QA_USER_LEVEL_ADMIN     => 'Admins',
@@ -22,7 +20,7 @@ class qa_notice_widget_admin
 	public function option_default($option)
 	{
 		if ($option === 'notice_board_manage_level')
-			return QA_USER_LEVEL_ADMIN; // default: Admin+
+			return QA_USER_LEVEL_EDITOR; // default: Editor+
 	}
 
 	public function admin_form()

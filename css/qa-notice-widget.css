@@ -15,6 +15,26 @@
     letter-spacing: .01em;
     background: linear-gradient(135deg, #f7f8fc, #eef1f8);
     border-bottom: 1px solid #e2e6ed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* ── Create notice button in header ── */
+.qa-notice-create-btn {
+    font-size: 12px;
+    font-weight: 600;
+    color: #2563eb;
+    text-decoration: none;
+    padding: 3px 10px;
+    border: 1px solid #2563eb;
+    border-radius: 6px;
+    transition: background .15s, color .15s;
+    white-space: nowrap;
+}
+.qa-notice-create-btn:hover {
+    background: #2563eb;
+    color: #fff;
 }
 
 /* ── Scroll area ── */
@@ -148,7 +168,6 @@
 /* ── "Show all notices" link ── */
 .qa-notice-show-all {
     text-align: center;
-    padding: 4px 10px 12px;
     font-size: 13px;
 }
 .qa-notice-show-all a {
@@ -158,6 +177,33 @@
 }
 .qa-notice-show-all a:hover {
     text-decoration: underline;
+}
+
+/* ── Footer (mark-all + show-all) ── */
+.qa-notice-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px 10px;
+    gap: 8px;
+}
+
+/* ── "Mark all as read" button ── */
+.qa-notice-mark-all {
+    font-size: 12px;
+    font-weight: 600;
+    color: #dc2626;
+    background: none;
+    border: 1px solid #fca5a5;
+    border-radius: 6px;
+    padding: 3px 10px;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+    white-space: nowrap;
+}
+.qa-notice-mark-all:hover {
+    background: #fee2e2;
+    color: #b91c1c;
 }
 
 /* ═════════════════ Dark mode ═════════════════ */
@@ -218,6 +264,24 @@
 
 [data-theme="dark"] .qa-notice-show-all a {
     color: #60a5fa;
+}
+
+[data-theme="dark"] .qa-notice-create-btn {
+    color: #60a5fa;
+    border-color: #60a5fa;
+}
+[data-theme="dark"] .qa-notice-create-btn:hover {
+    background: #60a5fa;
+    color: #1e1e1e;
+}
+
+[data-theme="dark"] .qa-notice-mark-all {
+    color: #f87171;
+    border-color: rgba(239, 68, 68, .3);
+}
+[data-theme="dark"] .qa-notice-mark-all:hover {
+    background: rgba(239, 68, 68, .2);
+    color: #fca5a5;
 }
 
 [data-theme="dark"] .qa-notice-empty {

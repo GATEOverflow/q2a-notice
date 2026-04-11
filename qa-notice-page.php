@@ -53,7 +53,8 @@ class qa_notice_page
 	{
 		$qa_content=qa_content_prepare();
 		$user_level = qa_get_logged_in_level();
-		if($user_level<QA_USER_LEVEL_MODERATOR)
+		$required_level = (int)qa_opt('notice_board_manage_level');
+		if($user_level<$required_level)
 		{
 			$qa_content=qa_content_prepare();
 
