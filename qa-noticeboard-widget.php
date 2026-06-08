@@ -23,7 +23,7 @@ class qa_notice_widget
     public function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
     {
 		if (!self::$assets_loaded) {
-                        $v = 3.2; // version for cache busting
+                        $v = 3.3; // version for cache busting
 
                         $themeobject->output(
                                 '<link rel="stylesheet" href="'.$this->urltoroot.'css/qa-notice-widget.css?v='.$v.'" media="print" onload="this.media=\'all\'">'
