@@ -341,6 +341,11 @@
 	//Check Validations after clicking submit button
 	document.addEventListener('submit', function (e) {
 		if (e.target.id === 'noticeForm') {
+			// Sync all static checkboxes to their hidden inputs before submit
+			document.querySelectorAll('.nb-is-static').forEach(function(cb) {
+				var hidden = cb.closest('.nb-static-wrap').querySelector('input[type="hidden"]');
+				hidden.value = cb.checked ? '1' : '0';
+			});
 			if (!validateAllCards()) {
 				e.preventDefault();
 			}
