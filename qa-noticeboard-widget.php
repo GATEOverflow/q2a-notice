@@ -23,14 +23,20 @@ class qa_notice_widget
     public function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
     {
 		if (!self::$assets_loaded) {
-			$v = 2.4; // version for cache busting
+                        $v = 3.1; // version for cache busting
 
-			$themeobject->output(
-				'<link rel="stylesheet" href="'.$this->urltoroot.'css/qa-notice-widget.css?v='.$v.'" media="print" onload="this.media=\'all\'">'
-			);
-			$themeobject->output(
-				'<script defer src="'.$this->urltoroot.'js/qa-notice-widget.js?v='.$v.'"></script>'
-			);
+                        $themeobject->output(
+                                '<link rel="stylesheet" href="'.$this->urltoroot.'css/qa-notice-widget.css?v='.$v.'" media="print" onload="this.media=\'all\'">'
+                        );
+                        $themeobject->output(
+                                '<script defer src="'.$this->urltoroot.'js/qa-notice-widget.js?v='.$v.'"></script>'
+                        );
+
+                        // Pass config to JS
+                        $displayMode = qa_opt('notice_board_display_mode') ?: 'cards';
+                        $cardInterval = (int)(qa_opt('notice_board_card_interval') ?: 10);
+                        $themeobject->output(
+                                '<script>var QA_NOTICE_CONFIG={mode:'.json_encode($displayMode).',interval:'.$cardInterval.'};</script>');
 
 			self::$assets_loaded = true;
 		}
@@ -101,6 +107,14 @@ class qa_notice_widget
             );
         }
         $themeobject->output('</div>'); // close scroll
+
+        // Card mode navigation
+        $themeobject->output('<div class="qa-notice-card-nav" style="display:none;">');
+        $themeobject->output('<button class="qa-notice-prev" title="Previous">&lsaquo;</button>');
+        $themeobject->output('<span class="qa-notice-indicator"></span>');
+        $themeobject->output('<button class="qa-notice-next" title="Next">&rsaquo;</button>');
+        $themeobject->output('<button class="qa-notice-pause" title="Pause/Resume auto-advance">&#9208;</button>');
+        $themeobject->output('</div>');
         if ($userid) {
             $themeobject->output('<div class="qa-notice-footer">');
             $themeobject->output(
