@@ -430,56 +430,73 @@ html:not([data-theme="light"]) .qa-notice-card-nav button:hover {
 
 /* ── Static notices (pinned, no dismiss) ── */
 .qa-notice-static {
-    border-bottom: 1px solid #e2e6ed;
-    padding: 8px 12px;
+    padding: 10px 14px 6px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    background: linear-gradient(135deg, #fffbe6, #fff9db);
+    gap: 8px;
+    border-bottom: 1px solid #ebeef3;
 }
 
 .qa-notice-static-item {
-    padding: 6px 10px;
-    border-left: 3px solid #f59e0b;
-    background: rgba(245, 158, 11, .06);
-    border-radius: 4px;
+    position: relative;
+    padding: 10px 14px 10px 30px;
+    border-radius: 8px;
+    background: #f8f9fb;
+    border: 1px solid #ebeef3;
+}
+
+.qa-notice-static-item::before {
+    content: "\uD83D\uDCCC";
+    position: absolute;
+    left: 9px;
+    top: 10px;
+    font-size: 12px;
+    opacity: .7;
 }
 
 .qa-notice-static-item .qa-notice-title-text {
+    font-size: 14px;
     font-weight: 600;
-    font-size: 13px;
+    color: #1f2937;
+    line-height: 1.4;
+    margin-bottom: 2px;
 }
 
 .qa-notice-static-item .qa-notice-title-text a {
-    color: #92400e;
+    color: #2563eb;
     text-decoration: none;
 }
 
 .qa-notice-static-item .qa-notice-title-text a:hover {
     text-decoration: underline;
+    color: #1d4ed8;
 }
 
 .qa-notice-static-item .qa-notice-desc {
-    font-size: 12px;
-    color: #78716c;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #4b5563;
     margin-top: 2px;
 }
 
 /* Dark mode static notices */
 html:not([data-theme="light"]) .qa-notice-static {
-    background: linear-gradient(135deg, rgba(245, 158, 11, .08), rgba(217, 119, 6, .05));
-    border-bottom-color: rgba(255, 255, 255, .1);
+    border-bottom-color: rgba(255, 255, 255, .08);
 }
 
 html:not([data-theme="light"]) .qa-notice-static-item {
-    border-left-color: #f59e0b;
-    background: rgba(245, 158, 11, .1);
+    background: rgba(255, 255, 255, .04);
+    border-color: rgba(255, 255, 255, .1);
+}
+
+html:not([data-theme="light"]) .qa-notice-static-item .qa-notice-title-text {
+    color: #e5e7eb;
 }
 
 html:not([data-theme="light"]) .qa-notice-static-item .qa-notice-title-text a {
-    color: #fbbf24;
+    color: #60a5fa;
 }
 
 html:not([data-theme="light"]) .qa-notice-static-item .qa-notice-desc {
-    color: #a8a29e;
+    color: #9ca3af;
 }
