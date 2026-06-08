@@ -446,7 +446,7 @@ html:not([data-theme="light"]) .qa-notice-card-nav button:hover {
 }
 
 .qa-notice-static-item::before {
-    content: "\uD83D\uDCCC";
+    content: "📌";
     position: absolute;
     left: 9px;
     top: 10px;
