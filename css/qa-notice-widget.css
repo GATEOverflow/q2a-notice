@@ -427,3 +427,59 @@ html:not([data-theme="light"]) .qa-notice-card-nav button:hover {
     border-color: #60a5fa;
     color: #60a5fa;
 }
+
+/* ── Static notices (pinned, no dismiss) ── */
+.qa-notice-static {
+    border-bottom: 1px solid #e2e6ed;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: linear-gradient(135deg, #fffbe6, #fff9db);
+}
+
+.qa-notice-static-item {
+    padding: 6px 10px;
+    border-left: 3px solid #f59e0b;
+    background: rgba(245, 158, 11, .06);
+    border-radius: 4px;
+}
+
+.qa-notice-static-item .qa-notice-title-text {
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.qa-notice-static-item .qa-notice-title-text a {
+    color: #92400e;
+    text-decoration: none;
+}
+
+.qa-notice-static-item .qa-notice-title-text a:hover {
+    text-decoration: underline;
+}
+
+.qa-notice-static-item .qa-notice-desc {
+    font-size: 12px;
+    color: #78716c;
+    margin-top: 2px;
+}
+
+/* Dark mode static notices */
+html:not([data-theme="light"]) .qa-notice-static {
+    background: linear-gradient(135deg, rgba(245, 158, 11, .08), rgba(217, 119, 6, .05));
+    border-bottom-color: rgba(255, 255, 255, .1);
+}
+
+html:not([data-theme="light"]) .qa-notice-static-item {
+    border-left-color: #f59e0b;
+    background: rgba(245, 158, 11, .1);
+}
+
+html:not([data-theme="light"]) .qa-notice-static-item .qa-notice-title-text a {
+    color: #fbbf24;
+}
+
+html:not([data-theme="light"]) .qa-notice-static-item .qa-notice-desc {
+    color: #a8a29e;
+}

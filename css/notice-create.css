@@ -63,6 +63,18 @@
     margin-top: 8px;
 }
 
+.nb-static-wrap {
+    margin: 8px 0;
+    font-size: 13px;
+}
+
+.nb-static-wrap label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
 .nb-add {
     margin-top: 14px;
 }

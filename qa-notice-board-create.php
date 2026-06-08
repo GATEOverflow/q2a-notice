@@ -123,6 +123,7 @@ class notice_board_create
 					'notice_title'   => $_POST['title'][$i] ?? '',
 					'notice_desc'    => $_POST['desc'][$i] ?? '',
 					'notice_url'     => $_POST['url'][$i] ?? '',
+					'is_static'      => (int)($_POST['is_static'][$i] ?? 0),
 					'audience_type'  => $_POST['audience'][$i] ?? 'public',
 					'min_level'      => $_POST['min_level'][$i] ?? null,
 					'start_at'       => $_POST['start'][$i] ?? '',
@@ -169,6 +170,7 @@ class notice_board_create
         $title = qa_html($r['notice_title'] ?? '');
         $desc  = qa_html($r['notice_desc'] ?? '');
         $url   = qa_html($r['notice_url'] ?? '');
+        $is_static = !empty($r['is_static']) ? 1 : 0;
         $aud   = $r['audience_type'] ?? 'public';
 		$visible_text = $aud;
 		if($aud == 'min_level'){
@@ -228,6 +230,11 @@ class notice_board_create
 
 				<label>".qa_lang('notice_page/notice_URL_label')."</label>
                 <input type='url' name='url[]' value='{$url}' placeholder='Absolute link'>
+
+                <div class='nb-static-wrap'>
+                    <label><input type='checkbox' class='nb-is-static' ".($is_static ? "checked" : "")."> Static (always visible, cannot be dismissed)</label>
+                    <input type='hidden' name='is_static[]' value='{$is_static}'>
+                </div>
 
                 <div class='nb-grid'>
                     <div>
@@ -290,6 +297,7 @@ class notice_board_create
         $urls   = $_POST['url'] ?? [];
         $mins   = $_POST['min_level'] ?? [];
         $users  = $_POST['specific_users'] ?? [];
+        $statics = $_POST['is_static'] ?? [];
 
         $pos = 1;
         $seen = [];
@@ -318,26 +326,28 @@ class notice_board_create
 
 
             if ($id) {
+                $is_static_val = (int)($statics[$i] ?? 0);
                 qa_db_query_sub(
                     "UPDATE ^noticeboard
                      SET notice_title=$, notice_desc=$, audience_type=$,
                          start_at=$, end_at=$, notice_url=$,
-                         min_level=$, position=$
+                         min_level=$, is_static=#, position=$
                      WHERE notice_id=$",
                     $title, $descs[$i], $audience,
                     $starts[$i], $ends[$i], $urls[$i],
-                    $min, $pos, $id
+                    $min, $is_static_val, $pos, $id
                 );
                 $nid = $id;
             } else {
+                $is_static_val = (int)($statics[$i] ?? 0);
                 qa_db_query_sub(
                     "INSERT INTO ^noticeboard
                      (notice_title, notice_desc, audience_type,
-                      start_at, end_at, notice_url, min_level, position)
-                     VALUES ($,$,$,$,$,$,$,$)",
+                      start_at, end_at, notice_url, min_level, is_static, position)
+                     VALUES ($,$,$,$,$,$,$,#,$)",
                     $title, $descs[$i], $audience,
                     $starts[$i], $ends[$i], $urls[$i],
-                    $min, $pos
+                    $min, $is_static_val, $pos
                 );
                 $nid = qa_db_last_insert_id();
 				

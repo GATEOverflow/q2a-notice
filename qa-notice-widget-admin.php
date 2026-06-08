@@ -106,14 +106,25 @@ class qa_notice_widget_admin
                 notice_url VARCHAR(1000),
                 audience_type ENUM('public','min_level','specific_users') NOT NULL DEFAULT 'public',
                 min_level SMALLINT DEFAULT NULL,
+                is_static TINYINT(1) NOT NULL DEFAULT 0,
                 position INT NOT NULL DEFAULT 1,
                 start_at DATETIME NOT NULL,
                 end_at   DATETIME NOT NULL,
                 INDEX (audience_type),
                 INDEX (start_at, end_at),
-                INDEX (position)
+                INDEX (position),
+                INDEX (is_static)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
             ";
+        } else {
+            // Migration: add is_static column if missing
+            $col = qa_db_read_one_value(qa_db_query_sub(
+                "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME=$ AND COLUMN_NAME='is_static'",
+                $noticeTbl
+            ), true);
+            if (!$col) {
+                $queries[] = "ALTER TABLE `$noticeTbl` ADD COLUMN is_static TINYINT(1) NOT NULL DEFAULT 0 AFTER min_level, ADD INDEX (is_static)";
+            }
         }
 
         if (!in_array($mapTbl, $tableslc)) {

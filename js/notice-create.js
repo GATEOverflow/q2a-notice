@@ -215,6 +215,11 @@
                 <label>`+notice_URL_label+`</label>
                 <input type="url" name="url[]">
 
+                <div class="nb-static-wrap">
+                    <label><input type="checkbox" class="nb-is-static"> Static (always visible, cannot be dismissed)</label>
+                    <input type="hidden" name="is_static[]" value="0">
+                </div>
+
                 <div class="nb-grid">
                     <div>
                         <label>`+notice_from_label+`</label>
@@ -438,6 +443,14 @@
 					});
 				});
 			});
+	});
+
+	// Sync static checkbox with hidden input
+	document.addEventListener('change', function (e) {
+		if (e.target.classList.contains('nb-is-static')) {
+			const hidden = e.target.closest('.nb-static-wrap').querySelector('input[type="hidden"]');
+			hidden.value = e.target.checked ? '1' : '0';
+		}
 	});
 	
 })();

@@ -46,6 +46,17 @@ class qa_notice_widget
         $userlevel  = qa_get_logged_in_level();
         $notices = $this->fetch_notices($userid, $userlevel);
 
+        // Separate static (pinned) notices from regular ones
+        $staticNotices = [];
+        $regularNotices = [];
+        foreach (($notices ?: []) as $n) {
+            if (!empty($n['is_static'])) {
+                $staticNotices[] = $n;
+            } else {
+                $regularNotices[] = $n;
+            }
+        }
+
         $userAttr = $userid ? ' data-userid="'.qa_html($userid).'"' : '';
         $canCreate = $userid && $userlevel >= (int)qa_opt('notice_board_manage_level');
         $themeobject->output('<div class="qa-notice-widget"'.$userAttr.'>');
@@ -57,10 +68,32 @@ class qa_notice_widget
             );
         }
         $themeobject->output('</div>');
+
+        // Static notices: always visible, no dismiss, stacked
+        if (!empty($staticNotices)) {
+            $themeobject->output('<div class="qa-notice-static">');
+            foreach ($staticNotices as $n) {
+                $title = qa_html($n['notice_title']);
+                $url = $n['notice_url'] ? qa_html($n['notice_url']) : null;
+                $themeobject->output('<div class="qa-notice-static-item">');
+                $themeobject->output(
+                    $url
+                        ? '<div class="qa-notice-title-text"><a href="'.$url.'" target="_blank">'.$title.'</a></div>'
+                        : '<div class="qa-notice-title-text">'.$title.'</div>'
+                );
+                if (!empty($n['notice_desc'])) {
+                    $themeobject->output('<div class="qa-notice-desc">'.qa_html($n['notice_desc']).'</div>');
+                }
+                $themeobject->output('</div>');
+            }
+            $themeobject->output('</div>');
+        }
+
+        // Regular notices (scrolling/cards)
         $themeobject->output('<div class="qa-notice-scroll">');
 		$themeobject->output('<div class="qa-notice-track">');
 
-		if (!$notices) {
+		if (!$regularNotices && !$staticNotices) {
 			$themeobject->output(
 				'<div class="qa-notice-empty">'.qa_lang('notice_page/notice_widget_no_notice').'</div>'
 			);
@@ -69,7 +102,14 @@ class qa_notice_widget
 			return;
 		}
 
-        foreach ($notices as $n) {
+		if (empty($regularNotices)) {
+			$themeobject->output('</div></div>');
+			// No card nav or footer needed if only static notices
+			$themeobject->output('</div>');
+			return;
+		}
+
+        foreach ($regularNotices as $n) {
             $title = qa_html($n['notice_title']);
             $url   = $n['notice_url']
                 ? qa_html($n['notice_url'])
