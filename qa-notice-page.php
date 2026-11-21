@@ -52,11 +52,15 @@ class qa_notice_page
 	public function process_request($request)
 	{
 		$qa_content=qa_content_prepare();
+		$qa_content['title'] = 'Notices';
+		$qa_content['head_lines'][] = '<meta name="robots" content="noindex">';
 		$user_level = qa_get_logged_in_level();
 		$required_level = (int)qa_opt('notice_board_manage_level');
 		if($user_level<$required_level)
 		{
 			$qa_content=qa_content_prepare();
+			$qa_content['title'] = 'Notices';
+			$qa_content['head_lines'][] = '<meta name="robots" content="noindex">';
 
 			if($user_level==null)
 				$qa_content['error']="Nothing Yet, Try Logging In, Come back, Ask me again!";
